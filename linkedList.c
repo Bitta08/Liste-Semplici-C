@@ -1,0 +1,317 @@
+// Mattia Bittante - 23/12/2025 - version 1.0 - italian
+
+#include "linkedlist.h"
+
+puntaNodo creaNodo(int valore)
+{
+  puntaNodo n = (puntaNodo)malloc(sizeof(nodo)); //cast per compatibilit� con C++
+  if (n == NULL) return NULL;
+  n->dato=valore;
+  n->next=NULL;
+  return n;
+}
+
+lista aggiungiInTesta(lista testa, int valore)
+{
+  puntaNodo n = creaNodo(valore);
+  if(n==NULL) return testa;
+  n->next = testa;
+  return n;
+}
+
+lista aggiungiInMezzo(lista testa, int valore, int pos)
+{
+  int i;
+  
+  if(pos<0) return testa;
+    
+  if(testa == NULL) return creaNodo(valore);
+
+  if(pos == 0) return aggiungiInTesta(testa,valore); 
+
+  puntaNodo n = creaNodo(valore);
+  puntaNodo corrente = testa;
+
+  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo � aggiunge in coda
+  {
+  	corrente = corrente->next;
+  }
+  
+  if(corrente->next == NULL) //se pos punta alla coda (o oltre)
+  {
+  	corrente->next = n;
+  	return testa;
+  }
+  n->next = corrente->next;
+  corrente->next = n;
+  return testa;
+}
+
+lista aggiungiInCoda(lista testa, int valore)
+{
+  puntaNodo n = creaNodo(valore);
+  if (testa == NULL) return n;
+
+  puntaNodo corrente = testa;
+  while(corrente->next != NULL)
+  {
+  	corrente = corrente->next;
+  }
+  corrente->next = n;
+  return testa;
+}
+
+void stampaLista(lista testa)
+{
+  puntaNodo corrente = testa;
+  while(corrente != NULL)
+  {
+  	printf("[%d] -> ",corrente->dato);
+  	corrente = corrente->next;
+  }
+  printf("NULL\n");
+}
+
+lista delLista(lista testa)
+{
+    puntaNodo corrente = testa;
+    while (corrente != NULL)
+    {
+        puntaNodo temp = corrente;
+        corrente = corrente->next;
+        free(temp);
+    }
+    return NULL;
+}
+
+
+lista delTesta(lista testa)
+{
+  if(testa == NULL) return NULL;
+  puntaNodo del = testa;
+  testa = testa->next;
+  free(del);
+
+  return testa;
+}
+
+lista delCoda(lista testa)
+{
+    if (testa == NULL) return NULL;
+
+    if (testa->next == NULL) //un solo nodo
+    {
+        free(testa);
+        return NULL;
+    }
+
+    puntaNodo corrente = testa;
+    while (corrente->next->next != NULL)
+    {
+        corrente = corrente->next;
+    }
+
+    free(corrente->next);
+    corrente->next = NULL;
+
+    return testa;
+}
+
+lista delEleLista(lista testa, int pos)
+{
+  int i;
+  
+  if(pos<0 || testa == NULL) return testa;
+
+  if(pos == 0) return delTesta(testa); 
+
+  puntaNodo corrente = testa;
+
+  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo è aggiunge in coda
+  {
+  	corrente = corrente->next;
+  }
+  
+  if(corrente->next == NULL) return testa;
+
+ puntaNodo daEliminare = corrente->next; 
+ corrente->next = daEliminare->next;
+ free(daEliminare);
+
+  return testa;
+}
+
+int incluso(lista testa, puntaNodo A)
+{
+  puntaNodo corrente = testa;
+  while(corrente != NULL)
+  {
+  	if(A == corrente) return 1;
+  	corrente = corrente->next;
+  }
+  return 0;
+}
+
+void swapDato(lista testa, puntaNodo A, puntaNodo B)
+{
+  if(incluso(testa,A) == 0 || incluso(testa,B) == 0) return;
+  int temp = 0;
+  temp = A->dato;
+  A->dato = B->dato;
+  B->dato = temp;
+}
+
+lista bubbleSortLista(lista testa)
+{
+  if (testa == NULL) return testa;
+  int scambiato;
+  do 
+  {
+    scambiato = 0;
+    puntaNodo corrente = testa;
+    while (corrente->next != NULL)
+    {
+      if (corrente->dato > corrente->next->dato)
+      {
+        swapDato(testa, corrente, corrente->next);
+        scambiato = 1;
+      }
+      corrente = corrente->next;
+    }
+  }while(scambiato);
+
+  return testa;
+}
+
+lista copiaLista(lista testa)
+{
+  lista copia = NULL;
+  puntaNodo corrente = testa;
+  while(corrente != NULL)
+  {
+    copia = aggiungiInCoda(copia,corrente->dato);
+    corrente = corrente->next;
+  }
+  return copia;
+}
+
+int ripetizioni(lista testa, int valore)
+{
+  int rip = 0;
+  puntaNodo corrente = testa;
+  while(corrente!=NULL)
+  {
+  	if(corrente->dato == valore) rip++;
+  	corrente = corrente->next;
+  }
+  return rip;
+}
+
+int modaLista(lista testa)
+{
+  if(testa == NULL) return INT_MIN;
+  puntaNodo corrente = testa;
+  int rip = 0;
+  int maxRip = ripetizioni(testa,corrente->dato);
+  int valoreMax = corrente->dato;
+  while(corrente != NULL)
+  {
+  	rip = ripetizioni(testa,corrente->dato);
+  	if(rip>maxRip) 
+	{
+	  maxRip = rip;
+	  valoreMax = corrente->dato;	
+	}
+  	corrente=corrente->next;
+  }
+  return valoreMax;
+}
+
+int lenLista(lista testa)
+{
+  puntaNodo corrente = testa;
+  int len = 0;
+  while(corrente!=NULL)
+  {
+  	len++;
+  	corrente = corrente->next;
+  }
+  return len;
+}
+
+int sommaLista(lista testa)
+{
+  puntaNodo corrente = testa;
+  int somma = 0;
+  while(corrente!=NULL)
+  {
+  	somma += corrente->dato;
+  	corrente = corrente->next;
+  }
+  return somma;
+}
+
+int maxLista(lista testa)
+{
+  if (testa == NULL) return INT_MIN;
+  int max = testa->dato;
+  puntaNodo corrente = testa;
+  while(corrente!=NULL)
+  {
+  	if(corrente->dato > max) max = corrente->dato;
+  	corrente = corrente->next;
+  }
+  return max;  
+}
+
+int minLista(lista testa)
+{
+  if (testa == NULL) return INT_MAX;
+  int min = testa->dato;
+  puntaNodo corrente = testa;
+  while(corrente!=NULL)
+  {
+  	if(corrente->dato < min) min = corrente->dato;
+  	corrente = corrente->next;
+  }
+  return min;  
+}
+
+float medLista(lista testa)
+{
+  int somma = sommaLista(testa);
+  int len = lenLista(testa);
+  if(len == 0) return NAN;
+  return(float)somma / len; 
+}
+
+float medianaLista(lista testa)
+{
+  int i;
+  float risultato;
+  int len = lenLista(testa);
+  if(len == 0) return NAN;
+
+  //eseguo una copia della lista per non ordinare quella originale.
+  lista copia = NULL;
+  copia = copiaLista(testa);
+  copia = bubbleSortLista(copia);
+  
+  puntaNodo corrente = copia;
+
+  if(len%2==1)
+  {
+  	for(i=0; i<len/2; i++)
+  	  corrente = corrente->next;	
+	  risultato = (float)corrente->dato;
+  }
+  else if(len%2==0)
+  {
+  	for(i=0; i<(len/2)-1; i++)
+  	  corrente = corrente->next;
+    risultato = (float)(corrente->dato + corrente->next->dato) / 2;
+  }
+  copia = delLista(copia);
+  return risultato;
+}
+

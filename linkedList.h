@@ -1,0 +1,44 @@
+// Mattia Bittante - 23/12/2025 - version 1.0 - italian
+
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <math.h>
+
+// Struttura base del nodo
+struct s_nodo 
+{
+  int dato;
+  struct s_nodo *next;
+};
+typedef struct s_nodo nodo;
+   
+typedef nodo *lista;      // puntatore alla lista (alla sua testa)
+typedef nodo *puntaNodo;  // puntatore a nodo specifico
+
+// Prototipi
+puntaNodo creaNodo(int valore);
+lista aggiungiInTesta(lista testa, int valore);
+lista aggiungiInMezzo(lista testa, int valore, int pos);
+lista aggiungiInCoda(lista testa, int valore);
+void stampaLista(lista testa);
+lista delLista(lista testa);
+lista delTesta(lista testa);
+lista delCoda(lista testa);
+lista delEleLista(lista testa, int pos);
+int incluso(lista testa, puntaNodo A);
+void swapDato(lista testa, puntaNodo A, puntaNodo B);
+lista bubbleSortLista(lista testa);
+lista copiaLista(lista testa);
+int ripetizioni(lista testa, int valore);
+int modaLista(lista testa);
+int lenLista(lista testa);
+int sommaLista(lista testa);
+int maxLista(lista testa);
+int minLista(lista testa);
+float medLista(lista testa);
+float medianaLista(lista testa);
+#endif
