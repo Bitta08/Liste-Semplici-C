@@ -2,9 +2,10 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.0  
-**Data:** 23/12/2025  
+**Versione:** 1.1  
+**Data:** 26/12/2025  
 **Linguaggio:** C (compatibile con C++)
+**Compatibilità:** Windows / Linux / macOS
 
 Una libreria semplice, didattica e completa per la gestione di **liste semplicemente concatenate** in C.  
 
@@ -27,13 +28,13 @@ La lista termina quando il puntatore di un nodo punta a NULL.
 
 ## 📁 Struttura del progetto
 
-Prima di tutto scarica i file `linkedlist.h` e `linkedlist.c` e assicurati di posizionarli **nella stessa directory** assieme ad un altro file C (o C++) che sarà il programma che andrà ad utilizzare la libreria: in questo caso `main.c`.
+Prima di tutto scarica i file `linkedList.h` e `linkedList.c` e assicurati di posizionarli **nella stessa directory** assieme ad un altro file C (o C++) che sarà il programma che andrà ad utilizzare la libreria: in questo caso `main.c`.
 
 ```txt
 /Cartella
 │
-├── linkedlist.h      # Header della libreria
-├── linkedlist.c      # Implementazione
+├── linkedList.h      # Header della libreria
+├── linkedList.c      # Implementazione
 └── main.c            # Esempio di utilizzo
 ```
 
@@ -47,7 +48,7 @@ Per compilare programmi C in Visual Studio Code servono **due cose:**
 
 1. L’estensione ufficiale **C/C++ di Microsoft**  
 
-2. Un compilatore C installato sul sistema (ad esempio `gcc.exe`)
+2. Un compilatore C installato sul sistema (ad esempio `gcc`)
 
 #### 1️⃣ Scaricare l'estensione C/C++
 
@@ -55,7 +56,7 @@ Apri VSC vai su **Extensions** o premi `Ctrl + Shift + X`, cerca C/C++ e scarica
 
 #### 2️⃣ Scaricare il compilatore C
 
-Per compilare un codice C in VSC è necessario aver installato un compilatore come `gcc.exe` (o `g++.exe` per compilare anche in C++). se hai già programmi come **Dev-C++** dovresti trovare già entrambi nella cartella `bin` del programma, in alternativa puoi seguire [la guida ufficiale](https://code.visualstudio.com/docs/languages/cpp) per scaricare un compilatore adatto.
+Per compilare un codice C in VSC è necessario aver installato un compilatore come `gcc` (o `g++` per compilare anche in C++). se hai già programmi come **Dev-C++** dovresti trovare già entrambi nella cartella `bin` del programma, in alternativa puoi seguire [la guida ufficiale](https://code.visualstudio.com/docs/languages/cpp) per scaricare un compilatore adatto.
 
 Una volta che hai scaricato il compilatore, vai sul terminale di VSC e lancia:
 
@@ -68,8 +69,15 @@ gdb --version
 Se tutto funziona correttamente, non ti resta che aprire la cartella del progetto su VSC, scrivere il proprio programma nel file `main.c` e poi lanciare sul terminale:
 
 ```bash
-gcc main.c linkedlist.c -o main.exe
+gcc main.c linkedList.c -o main.exe
 .\main.exe
+```
+
+Se stai utlizzando Linux o macOS, assicurati di aggiungere -lm nella compilazione per collegare la libreria `math.h`, in questo modo:
+
+```bash
+gcc main.c linkedList.c -o main -lm
+./main
 ```
 
 >‼️Non compilare con il tasto Run di VSC in quanto compilerà solo il file `main.c` generando errori di linking.
@@ -77,7 +85,7 @@ gcc main.c linkedlist.c -o main.exe
 ### Compilazione con Dev-C++
 
 Se usi Dev-C++, crea un progetto vuoto (`New` > `Progetto` > `Empty Project`) seleziona linguaggio e nome e salva.
-A questo punto premi tasto destro sul progetto creato e seleziona `Aggiungi al Progetto` e apri i 2 file `linkedlist.h` e `linkedlist.c`.
+A questo punto premi tasto destro sul progetto creato e seleziona `Aggiungi al Progetto` e apri i 2 file `linkedList.h` e `linkedList.c`.
 Ora apri il file iniziale del progetto (solitamente `SenzaTitolo1.c`). Questo sarà il corrispondente di `main.c` , scrivi quindi il programma e premi `Compila & Esegui` o `F11` per compilare.
 
 >ℹ️ Puoi anche eliminare il file `SenzaTitolo1.c` e aggiungere al progetto `main.c`
@@ -91,7 +99,7 @@ Ora apri il file iniziale del progetto (solitamente `SenzaTitolo1.c`). Questo sa
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
-#include "linkedlist.h"
+#include "linkedList.h"
 
 int main() {
     lista l = NULL;
@@ -376,7 +384,7 @@ miaLista = delEleLista(miaLista, 3);
 
 ---
 
-### `int incluso(lista testa, puntaNodo A);`
+### `int nodoIncluso(lista testa, puntaNodo A);`
 
 Verifica se un determinato nodo appartiene alla lista specificata.
 
@@ -393,8 +401,31 @@ Verifica se un determinato nodo appartiene alla lista specificata.
 **Esempio di utilizzo:**
 
 ```c
-isIncluded = incluso(miaLista,A);
+isIncluded = nodoIncluso(miaLista,A);
 if(isIncluded) printf("A è presente nella lista");
+```
+
+---
+
+### `int datoIncluso(lista testa, int valore);`
+
+Verifica se un determinato valore è presente nella lista specificata.
+
+**Parametri:**
+
+- **`lista testa`**: La lista in cui cercare.
+- **`int valore`**: Il valore del dato da cercare.
+
+**Ritorno:**
+
+- **`1`**: Se il valore è già presente nella lista.
+- **`0`**: Se il valore non è presente o la lista è vuota.
+
+**Esempio di utilizzo:**
+
+```c
+isIncluded = datoIncluso(miaLista,7);
+if(isIncluded) printf("7 è presente nella lista");
 ```
 
 ---

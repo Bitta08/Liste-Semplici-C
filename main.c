@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
-#include "linkedlist.h"
+#include "linkedList.h"
 
 int main() {
     lista l = NULL;

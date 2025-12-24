@@ -1,10 +1,10 @@
 // Mattia Bittante - 23/12/2025 - version 1.0 - italian
 
-#include "linkedlist.h"
+#include "linkedList.h"
 
 puntaNodo creaNodo(int valore)
 {
-  puntaNodo n = (puntaNodo)malloc(sizeof(nodo)); //cast per compatibilit� con C++
+  puntaNodo n = (puntaNodo)malloc(sizeof(nodo)); //cast per compatibilita con C++
   if (n == NULL) return NULL;
   n->dato=valore;
   n->next=NULL;
@@ -141,7 +141,7 @@ lista delEleLista(lista testa, int pos)
   return testa;
 }
 
-int incluso(lista testa, puntaNodo A)
+int nodoIncluso(lista testa, puntaNodo A)
 {
   puntaNodo corrente = testa;
   while(corrente != NULL)
@@ -152,9 +152,22 @@ int incluso(lista testa, puntaNodo A)
   return 0;
 }
 
+int datoIncluso(lista testa, int valore)
+{
+  puntaNodo corrente = testa;
+
+  while(corrente != NULL)
+  {
+    if(corrente->dato==valore) return 1;
+    corrente=corrente->next;
+  }
+  
+  return 0;
+}
+
 void swapDato(lista testa, puntaNodo A, puntaNodo B)
 {
-  if(incluso(testa,A) == 0 || incluso(testa,B) == 0) return;
+  if(nodoIncluso(testa,A) == 0 || nodoIncluso(testa,B) == 0) return;
   int temp = 0;
   temp = A->dato;
   A->dato = B->dato;
@@ -314,4 +327,3 @@ float medianaLista(lista testa)
   copia = delLista(copia);
   return risultato;
 }
-
