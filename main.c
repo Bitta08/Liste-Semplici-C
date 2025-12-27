@@ -14,8 +14,6 @@ int main() {
     stampaLista(l);
 
     printf("aggiunta elementi:\n");
-    l = aggiungiInTesta(l, 5);
-    l = aggiungiInCoda(l, 7);
     l = aggiungiInMezzo(l, 3, 5);
     stampaLista(l);
     
@@ -35,6 +33,5 @@ int main() {
     printf("Max: %d\n", maxLista(l));
     printf("Media: %.2f\n", medLista(l));
     printf("Mediana: %.2f\n", medianaLista(l));
-    printf("Moda: %d", modaLista(l));
     return 0;
 }

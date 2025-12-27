@@ -2,7 +2,7 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.2  
+**Versione:** 1.3  
 **Data:** 27/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
@@ -99,15 +99,29 @@ Ora apri il file iniziale del progetto (solitamente `SenzaTitolo1.c`). Questo sa
 #include <stdlib.h>
 #include <limits.h>
 #include <math.h>
+#include <time.h>
 #include "linkedList.h"
 
 int main() {
+    srand(time(NULL));
     lista l = NULL;
+    
+    printf("originale:\n");
+    l = riempiRnd(l,5,10,1,1);
+    stampaLista(l);
 
-    l = aggiungiInTesta(l, 5);
-    l = aggiungiInCoda(l, 7);
-    l = aggiungiInMezzo(l, 3, 1);
-
+    printf("aggiunta elementi:\n");
+    l = aggiungiInMezzo(l, 3, 5);
+    stampaLista(l);
+    
+    printf("cancellazione elementi:\n");
+    l=delEleLista(l,4);
+    stampaLista(l);
+    printf("lista invertita:\n");
+    l = invertiLista(l);
+    stampaLista(l);
+    printf("lista ordinata:\n");
+    l = bubbleSortLista(l);
     stampaLista(l);
 
     printf("Lunghezza: %d\n", lenLista(l));
@@ -116,24 +130,32 @@ int main() {
     printf("Max: %d\n", maxLista(l));
     printf("Media: %.2f\n", medLista(l));
     printf("Mediana: %.2f\n", medianaLista(l));
-
     return 0;
 }
 ```
 
-**Output atteso:**
+**Esempio output:**
 
 ```bash
-[5] -> [3] -> [7] -> NULL
-Lunghezza: 3
-Somma: 15
+originale:
+[3] -> [7] -> [4] -> [8] -> [9] -> NULL
+aggiunta elementi:
+[3] -> [7] -> [4] -> [8] -> [9] -> [3] -> NULL
+cancellazione elementi:
+[3] -> [7] -> [4] -> [8] -> [3] -> NULL
+lista invertita:
+[3] -> [8] -> [4] -> [7] -> [3] -> NULL
+lista ordinata:
+[3] -> [3] -> [4] -> [7] -> [8] -> NULL
+Lunghezza: 5
+Somma: 25
 Min: 3
-Max: 7
+Max: 8
 Media: 5.00
-Mediana: 5.00
+Mediana: 4.00
 ```
 
->‼️Alcune funzione della libreria utilizzano `<limits.h>` e `<math.h>`, assicurati di includerle nel tuo `main.c` per garantire l'autosufficienza del codice. Il programma compilerebbe anche senza, ma è buona pratica farlo.
+>‼️Alcune funzione della libreria utilizzano `<limits.h>`, `<math.h>`, `<stdlib.h>`, assicurati di includerle nel tuo `main.c` per garantire l'autosufficienza del codice. Il programma compilerebbe anche senza, ma è buona pratica farlo.
 
 ---
 
@@ -244,7 +266,6 @@ Inserisce un nuovo nodo in una posizione specifica della lista. Se la posizione 
 
 ```c
 miaLista = aggiungiInMezzo(miaLista, 15, 2);
-
 ```
 
 **Note:**
@@ -272,7 +293,6 @@ Inserisce un nuovo nodo alla fine della lista.
 
 ```c
 miaLista = aggiungiInCoda(miaLista, 42);
-
 ```
 
 ---
@@ -504,6 +524,66 @@ Ordina la lista in modo crescente utilizzando l'algoritmo Bubble Sort tramite lo
 ```c
 listaOrdinata = bubbleSortLista(listaOrdinata);
 ```
+
+---
+
+### `lista mergeOrdinato(lista a, lista b);`
+
+‼️**Funzione di supporto a `mergeSortLista`.**
+Fonde due sottoliste già ordinate in un'unica lista ordinata.
+
+**Parametri:**
+
+- **`lista a`**: Puntatore alla testa della prima sottolista ordinata.
+- **`lista b`**: Puntatore alla testa della seconda sottolista ordinata.
+
+**Ritorno:**
+
+- Il puntatore alla testa della lista risultante dalla fusione dei nodi delle due liste originali.
+
+---
+
+### `lista mergeSortLista(lista testa);`
+
+Ordina la lista in modo crescente utilizzando l'algoritmo Merge Sort con complessità temporale $O(n \log n)$.
+
+**Parametri:**
+
+- **`lista testa`**: La lista disordinata da ordinare.
+
+**Ritorno:**
+
+- Il puntatore alla nuova testa della lista ordinata.
+
+---
+
+### `lista fondiListe(lista L1, lista L2);`
+
+Crea una nuova lista che è la concatenazione di due liste esistenti. A differenza di altre funzioni di unione, questa non modifica le liste originali ma ne crea una copia profonda.
+
+**Parametri:**
+
+- **`lista L1`**: La prima lista da copiare.
+- **`lista L2`**: La seconda lista i cui elementi verranno aggiunti in coda alla copia di `L1`.
+
+**Ritorno:**
+
+- Il puntatore alla testa di una nuova lista contenente tutti gli elementi di `L1` seguiti da quelli di `L2`.
+- `NULL` se entrambe le liste di partenza sono vuote.
+
+**Esempio di utilizzo:**
+
+```c
+lista listaA = // [1, 2]
+lista listaB = // [3, 4]
+lista listaUnita = fondiListe(listaA, listaB);
+// listaA e listaB rimangono invariate. listaUnita è [1, 2, 3, 4]
+
+```
+
+**Note:**
+
+- Questa funzione alloca nuova memoria per ogni singolo nodo. È responsabilità dell'utente liberare la memoria della lista restituita tramite la funzione di deallocazione dedicata.
 
 ---
 

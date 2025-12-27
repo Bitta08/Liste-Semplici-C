@@ -1,4 +1,4 @@
-// Mattia Bittante - 27/12/2025 - version 1.2 - italian
+// Mattia Bittante - 27/12/2025 - version 1.3 - italian
 
 #include "linkedList.h"
 
@@ -219,6 +219,48 @@ lista bubbleSortLista(lista testa)
   return testa;
 }
 
+// Funzione interna di supporto per fondere due sottoliste già ordinate
+lista mergeOrdinato(lista a, lista b) 
+{
+  if (a == NULL) return b;
+  if (b == NULL) return a;
+
+  lista risultato = NULL;
+
+  if (a->dato <= b->dato) 
+  {
+    risultato = a;
+    risultato->next = mergeOrdinato(a->next, b);
+  } 
+  else 
+  {
+    risultato = b;
+    risultato->next = mergeOrdinato(a, b->next);
+  }
+  return risultato;
+}
+
+// Funzione principale di Merge Sort
+lista mergeSortLista(lista testa) 
+{
+
+  if (testa == NULL || testa->next == NULL) return testa;
+
+  puntaNodo lento = testa;
+  puntaNodo veloce = testa->next;
+
+  while (veloce != NULL && veloce->next != NULL) 
+  {
+    lento = lento->next;
+    veloce = veloce->next->next;
+  }
+
+  lista meta = lento->next;
+  lento->next = NULL;
+
+  return mergeOrdinato(mergeSortLista(testa), mergeSortLista(meta));
+}
+
 lista copiaLista(lista testa)
 {
   lista copia = NULL;
@@ -229,6 +271,24 @@ lista copiaLista(lista testa)
     corrente = corrente->next;
   }
   return copia;
+}
+
+lista fondiListe(lista L1, lista L2)
+{
+  if (L1 == NULL && L2 == NULL) return NULL;
+  if (L1 == NULL) return copiaLista(L2);
+  if (L2 == NULL) return copiaLista(L1);
+
+  lista nuovaLista = copiaLista(L1);
+  puntaNodo corrente = L2;
+
+  while (corrente != NULL)
+  {
+    nuovaLista = aggiungiInCoda(nuovaLista, corrente->dato);
+    corrente = corrente->next;
+  }
+
+  return nuovaLista;
 }
 
 lista invertiLista(lista testa)
