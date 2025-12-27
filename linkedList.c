@@ -1,4 +1,4 @@
-// Mattia Bittante - 23/12/2025 - version 1.0 - italian
+// Mattia Bittante - 27/12/2025 - version 1.2 - italian
 
 #include "linkedList.h"
 
@@ -58,6 +58,29 @@ lista aggiungiInCoda(lista testa, int valore)
   	corrente = corrente->next;
   }
   corrente->next = n;
+  return testa;
+}
+
+lista riempiRnd(lista testa, int dim, int range, int min, int div)
+{
+  int i,r;
+  for(i=0; i<dim; i++)
+  {
+    
+    if(div==1 && dim <= range)
+    {
+      do
+      {
+        r = (rand()%range) + (min);
+      }while(datoIncluso(testa,r) == 1);
+    }
+    else
+    {
+      r = (rand()%range) + (min);
+    }
+    testa = aggiungiInTesta(testa,r);
+  }
+  
   return testa;
 }
 
@@ -206,6 +229,20 @@ lista copiaLista(lista testa)
     corrente = corrente->next;
   }
   return copia;
+}
+
+lista invertiLista(lista testa)
+{
+  puntaNodo corrente = testa;
+  lista listaInvertita = NULL;
+  
+  while(corrente != NULL)
+  {
+    listaInvertita = aggiungiInTesta(listaInvertita,corrente->dato);
+    corrente = corrente->next;
+  }
+
+  return listaInvertita;
 }
 
 int ripetizioni(lista testa, int valore)

@@ -2,8 +2,8 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.1  
-**Data:** 26/12/2025  
+**Versione:** 1.2  
+**Data:** 27/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
 
@@ -277,6 +277,39 @@ miaLista = aggiungiInCoda(miaLista, 42);
 
 ---
 
+### `lista riempiRnd(lista testa, int dim, int range, int min, int div);`
+
+Aggiunge in testa a una lista `dim` numeri casuali da `min` a `min + range`.
+
+**Parametri:**
+
+- **`int dim`**: Quantità di numeri da generare e aggiungere alla lista.
+- **`int range`**: L'ampiezza dell'intervallo (quanti valori diversi sono possibili).
+- **`int min`**: Il valore minimo possibile (il limite inferiore dell'intervallo).
+- **`int div`**: Valore booleano:
+  - **`1`**: Forza la generazione di numeri univoci.
+  - **`0`**: Permette la generazione di numeri duplicati.
+
+**Ritorno:**
+
+- Il **puntatore** alla testa della lista.
+
+**Esempio di utilizzo:**
+
+```c
+miaLista = riempiRnd(miaLista, 5,10,1,1);
+stampaLista(miaLista);
+// es. di output (5 numeri da 1 a 10 tutti diversi)
+[6] -> [8] -> [2] -> [4] -> [5] -> NULL
+```
+
+**Note:**
+
+- Se `div = 1`, la funzione utilizza `incluso`, il quale scorre l'intera lista, per ogni nuovo numero. Se `dim` è troppo alto i tempi di elaborazione posso diventare molto lunghi.
+- per `div`, ogni valore diverso da `1` permette numeri duplicati.
+
+---
+
 ### `void stampaLista(lista testa);`
 
 Stampa a video il contenuto della lista nel formato `[dato] -> [dato] -> NULL`.
@@ -290,6 +323,8 @@ Stampa a video il contenuto della lista nel formato `[dato] -> [dato] -> NULL`.
 ```c
 stampaLista(miaLista); // Output: [10] -> [20] -> NULL
 ```
+
+---
 
 ### `lista delLista(lista testa);`
 
@@ -496,6 +531,32 @@ lista miaCopia = copiaLista(listaOriginale);
 - La funzione effettua una "deep copy": le modifiche ai valori o alla struttura della copia non influenzano in alcun modo la lista originale.
 - Utilizza internamente la funzione `aggiungiInCoda` per mantenere lo stesso ordine degli elementi.
 - La memoria allocata per la copia deve essere successivamente liberata tramite `delLista` per evitare memory leak.
+
+---
+
+### `lista invertiLista(lista testa);`
+
+Crea una nuova lista che contiene gli stessi elementi della lista originale, ma in ordine invertito.
+
+**Parametri:**
+
+- **`lista testa`**: La lista originale da invertire.
+
+**Ritorno:**
+
+- **`lista`**: Il puntatore alla testa della nuova lista invertita.
+- **`NULL`**: Se la lista originale è vuota.
+
+**Esempio di utilizzo:**
+
+```c
+lista listaSpeculare = invertiLista(miaLista);
+// Se miaLista era [1, 2, 3], listaSpeculare sarà [3, 2, 1]
+```
+
+**Note:**
+
+- Questa funzione alloca nuova memoria per ogni nodo della lista risultante. Ricordarsi di liberare la memoria della lista restituita quando non più necessaria.
 
 ---
 
