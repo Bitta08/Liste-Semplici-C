@@ -2,8 +2,8 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.3  
-**Data:** 27/12/2025  
+**Versione:** 1.4  
+**Data:** 28/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
 
@@ -327,6 +327,8 @@ stampaLista(miaLista);
 
 - Se `div = 1`, la funzione utilizza `incluso`, il quale scorre l'intera lista, per ogni nuovo numero. Se `dim` è troppo alto i tempi di elaborazione posso diventare molto lunghi.
 - per `div`, ogni valore diverso da `1` permette numeri duplicati.
+- I numeri generati vengono inseriti nella lista tramite `aggiungiInTesta` per questioni di ottimizzazione. (Aggiungendo in coda bisognerebbe scorrere la lista per ogni numero).
+- Se non esistono abbastanza numeri univoci, vengono inseriti finché disponibili, poi vengono accettati duplicati.
 
 ---
 

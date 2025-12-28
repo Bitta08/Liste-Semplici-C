@@ -1,4 +1,4 @@
-// Mattia Bittante - 27/12/2025 - version 1.3 - italian
+// Mattia Bittante - 28/12/2025 - version 1.4 - italian
 
 #include "linkedList.h"
 
@@ -63,25 +63,30 @@ lista aggiungiInCoda(lista testa, int valore)
 
 lista riempiRnd(lista testa, int dim, int range, int min, int div)
 {
-  int i,r;
-  for(i=0; i<dim; i++)
-  {
-    
-    if(div==1 && dim <= range)
+    int i, r;
+    int valoriOccupati = 0; //valori del range già presenti nella lista
+
+    if (div == 1) 
     {
-      do
-      {
-        r = (rand()%range) + (min);
-      }while(datoIncluso(testa,r) == 1);
+        for (int v = min; v < min + range; v++) 
+        {
+            if (datoIncluso(testa, v)) valoriOccupati++;
+        }
     }
-    else
+
+    for (i = 0; i < dim; i++) 
     {
-      r = (rand()%range) + (min);
+        if (div == 1 && valoriOccupati < range) //finché c'è spazio lo genera diverso, poi lo genera con ripetizioni
+        {
+            do {
+                r = (rand() % range) + min;
+            } while (datoIncluso(testa, r) == 1); 
+            valoriOccupati++; 
+        } 
+        else r = (rand() % range) + min;
+        testa = aggiungiInTesta(testa, r);
     }
-    testa = aggiungiInTesta(testa,r);
-  }
-  
-  return testa;
+    return testa;
 }
 
 void stampaLista(lista testa)

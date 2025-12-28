@@ -1,4 +1,4 @@
-// Mattia Bittante - 27/12/2025 - version 1.3 - italian
+// Mattia Bittante - 28/12/2025 - version 1.4 - italian
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
