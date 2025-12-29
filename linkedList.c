@@ -1,4 +1,4 @@
-// Mattia Bittante - 29/12/2025 - version 1.5 - italian
+// Mattia Bittante - 29/12/2025 - version 1.6 - italian
 
 #include "linkedList.h"
 
@@ -63,12 +63,12 @@ lista aggiungiInCoda(lista testa, int valore)
 
 lista riempiRnd(lista testa, int dim, int range, int min, int div)
 {
-    int i, r;
+    int i, r, v;
     int valoriOccupati = 0; //valori del range già presenti nella lista
 
     if (div == 1) 
     {
-        for (int v = min; v < min + range; v++) 
+        for (v = min; v < min + range; v++) 
         {
             if (datoIncluso(testa, v)) valoriOccupati++;
         }
@@ -87,6 +87,63 @@ lista riempiRnd(lista testa, int dim, int range, int min, int div)
         testa = aggiungiInTesta(testa, r);
     }
     return testa;
+}
+
+int intInput() 
+{
+    int numero;
+    char ch;
+    int valido, negativo, contatore_cifre;
+
+    while (1) 
+    {
+        numero = 0;
+        valido = 1;
+        negativo = 0;
+        contatore_cifre = 0;
+
+        // Legge caratteri fino a newline o EOF
+        while ((ch = getchar()) != '\n' && ch != EOF) 
+        {
+            if (ch == '-' && contatore_cifre == 0 && negativo == 0) 
+            {
+                negativo = 1;
+            } 
+            else if (ch >= '0' && ch <= '9') 
+            {
+                numero = numero * 10 + (ch - '0');
+                contatore_cifre++;
+            } 
+            else 
+            {
+                valido = 0; // Lettera o simbolo non valido
+            }
+        }
+
+        if (valido && contatore_cifre > 0) 
+        {
+            if (negativo) numero = -numero;
+            return numero;
+        }
+
+        printf("Errore! Inserire un numero intero valido: ");
+        // Se l'errore fosse causato da EOF (chiusura improvvisa input), esco per evitare loop infiniti
+        if (ch == EOF) return 0; 
+    }
+}
+
+lista riempiManuale(lista testa, int dim)
+{
+  int i;
+  int input;
+  for(i=0; i<dim; i++)
+  {
+    printf("Elemento %d: ",i+1);
+    input = intInput();
+    testa = aggiungiInCoda(testa,input);
+  }
+
+  return testa;
 }
 
 void stampaLista(lista testa)

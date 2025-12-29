@@ -1,4 +1,4 @@
-// Mattia Bittante - 29/12/2025 - version 1.5 - italian
+// Mattia Bittante - 29/12/2025 - version 1.6 - italian
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -26,6 +26,8 @@ lista aggiungiInTesta(lista testa, int valore);
 lista aggiungiInMezzo(lista testa, int valore, int pos);
 lista aggiungiInCoda(lista testa, int valore);
 lista riempiRnd(lista testa, int dim, int range, int min, int div);
+int intInput();
+lista riempiManuale(lista testa, int dim);
 void stampaLista(lista testa);
 lista delLista(lista testa);
 lista delTesta(lista testa);

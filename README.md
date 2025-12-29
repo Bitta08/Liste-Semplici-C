@@ -2,7 +2,7 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.5  
+**Versione:** 1.6  
 **Data:** 29/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
@@ -329,6 +329,50 @@ stampaLista(miaLista);
 - per `div`, ogni valore diverso da `1` permette numeri duplicati.
 - I numeri generati vengono inseriti nella lista tramite `aggiungiInTesta` per questioni di ottimizzazione. (Aggiungendo in coda bisognerebbe scorrere la lista per ogni numero).
 - Se non esistono abbastanza numeri univoci, vengono inseriti finché disponibili, poi vengono accettati duplicati.
+
+---
+
+### `int intInput();`
+
+Legge un input intero da tastiera, garantendo che il programma non vada in crash o in loop infinito se vengono inseriti caratteri non numerici.
+
+**Funzionamento:**
+
+- Svuota il buffer di input a ogni tentativo.
+- Gestisce correttamente il segno negativo (`-`) solo se posto all'inizio.
+- Richiede nuovamente l'inserimento finché non viene digitato un numero intero valido.
+
+**Ritorno:**
+
+- Il valore **intero** inserito dall'utente.
+- **`0`**: In caso di terminazione forzata dell'input.
+
+**Esempio di utilizzo:**
+
+```c
+int n = intInput();
+```
+
+---
+
+### `lista riempiManuale(lista testa, int dim);`
+
+Permette il popolamento di una lista tramite inserimenti manuali da parte dell'utente per un numero definito di volte.
+
+**Parametri:**
+
+- **`lista testa`**: La testa della lista (può essere `NULL`).
+- **`int dim`**: Il numero di elementi da inserire.
+
+**Ritorno:**
+
+- La **nuova testa** della lista aggiornata.
+
+**Esempio di utilizzo:**
+
+```c
+miaLista = riempiManuale(miaLista, 5);
+```
 
 ---
 
