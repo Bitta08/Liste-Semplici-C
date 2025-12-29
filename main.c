@@ -10,28 +10,28 @@ int main() {
     lista l = NULL;
     
     printf("originale:\n");
-    l = riempiRnd(l,5,10,1,1);
-    stampaLista(l);
+    l = sl_riempiRnd(l,5,10,1,1);
+    sl_stampaLista(l);
 
     printf("aggiunta elementi:\n");
-    l = aggiungiInMezzo(l, 3, 5);
-    stampaLista(l);
+    l = sl_aggiungiInMezzo(l, 3, 5);
+    sl_stampaLista(l);
     
     printf("cancellazione elementi:\n");
-    l=delEleLista(l,4);
-    stampaLista(l);
+    l = sl_delEleLista(l,4);
+    sl_stampaLista(l);
     printf("lista invertita:\n");
-    l = invertiLista(l);
-    stampaLista(l);
+    l = sl_invertiLista(l);
+    sl_stampaLista(l);
     printf("lista ordinata:\n");
-    l = bubbleSortLista(l);
-    stampaLista(l);
+    l = sl_bubbleSortLista(l);
+    sl_stampaLista(l);
 
-    printf("Lunghezza: %d\n", lenLista(l));
-    printf("Somma: %d\n", sommaLista(l));
-    printf("Min: %d\n", minLista(l));
-    printf("Max: %d\n", maxLista(l));
-    printf("Media: %.2f\n", medLista(l));
-    printf("Mediana: %.2f\n", medianaLista(l));
+    printf("Lunghezza: %d\n", sl_lenLista(l));
+    printf("Somma: %d\n", sl_sommaLista(l));
+    printf("Min: %d\n", sl_minLista(l));
+    printf("Max: %d\n", sl_maxLista(l));
+    printf("Media: %.2f\n", sl_medLista(l));
+    printf("Mediana: %.2f\n", sl_medianaLista(l));
     return 0;
 }

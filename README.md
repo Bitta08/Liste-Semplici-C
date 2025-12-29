@@ -2,7 +2,7 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.6  
+**Versione:** 1.7  
 **Data:** 29/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
@@ -107,29 +107,29 @@ int main() {
     lista l = NULL;
     
     printf("originale:\n");
-    l = riempiRnd(l,5,10,1,1);
-    stampaLista(l);
+    l = sl_riempiRnd(l,5,10,1,1);
+    sl_stampaLista(l);
 
     printf("aggiunta elementi:\n");
-    l = aggiungiInMezzo(l, 3, 5);
-    stampaLista(l);
+    l = sl_aggiungiInMezzo(l, 3, 5);
+    sl_stampaLista(l);
     
     printf("cancellazione elementi:\n");
-    l=delEleLista(l,4);
-    stampaLista(l);
+    l = sl_delEleLista(l,4);
+    sl_stampaLista(l);
     printf("lista invertita:\n");
-    l = invertiLista(l);
-    stampaLista(l);
+    l = sl_invertiLista(l);
+    sl_stampaLista(l);
     printf("lista ordinata:\n");
-    l = bubbleSortLista(l);
-    stampaLista(l);
+    l = sl_bubbleSortLista(l);
+    sl_stampaLista(l);
 
-    printf("Lunghezza: %d\n", lenLista(l));
-    printf("Somma: %d\n", sommaLista(l));
-    printf("Min: %d\n", minLista(l));
-    printf("Max: %d\n", maxLista(l));
-    printf("Media: %.2f\n", medLista(l));
-    printf("Mediana: %.2f\n", medianaLista(l));
+    printf("Lunghezza: %d\n", sl_lenLista(l));
+    printf("Somma: %d\n", sl_sommaLista(l));
+    printf("Min: %d\n", sl_minLista(l));
+    printf("Max: %d\n", sl_maxLista(l));
+    printf("Media: %.2f\n", sl_medLista(l));
+    printf("Mediana: %.2f\n", sl_medianaLista(l));
     return 0;
 }
 ```
@@ -190,7 +190,7 @@ Per leggibilità aggiungo inoltre due alias a `*nodo`:
 
 ---
 
-### `puntaNodo creaNodo(int valore);`
+### `puntaNodo sl_creaNodo(int valore);`
 
 Crea un nuovo nodo allocando memoria dinamicamente e gli assegna il valore specificato.
 
@@ -206,7 +206,7 @@ Crea un nuovo nodo allocando memoria dinamicamente e gli assegna il valore speci
 **Esempio di utilizzo:**
 
 ```c
-puntaNodo nuovo = creaNodo(5);
+puntaNodo nuovo = sl_creaNodo(5);
 if (nuovo != NULL) {
     // utilizzo del nodo
 }
@@ -219,7 +219,7 @@ if (nuovo != NULL) {
 
 ---
 
-### `lista aggiungiInTesta(lista testa, int valore);`
+### `lista sl_aggiungiInTesta(lista testa, int valore);`
 
 Crea un nuovo nodo e lo inserisce come primo elemento della lista specificata.
 
@@ -237,7 +237,7 @@ Crea un nuovo nodo e lo inserisce come primo elemento della lista specificata.
 
 ```c
 lista nuovaLista = NULL;
-nuovaLista = aggiungiInTesta(nuovaLista,6);
+nuovaLista = sl_aggiungiInTesta(nuovaLista,6);
 ```
 
 **Note:**
@@ -247,7 +247,7 @@ nuovaLista = aggiungiInTesta(nuovaLista,6);
 
 ---
 
-### `lista aggiungiInMezzo(lista testa, int valore, int pos);`
+### `lista sl_aggiungiInMezzo(lista testa, int valore, int pos);`
 
 Inserisce un nuovo nodo in una posizione specifica della lista. Se la posizione indicata supera la lunghezza della lista, il nodo viene inserito in coda.
 
@@ -265,17 +265,17 @@ Inserisce un nuovo nodo in una posizione specifica della lista. Se la posizione 
 **Esempio di utilizzo:**
 
 ```c
-miaLista = aggiungiInMezzo(miaLista, 15, 2);
+miaLista = sl_aggiungiInMezzo(miaLista, 15, 2);
 ```
 
 **Note:**
 
-- Se `pos == 0`, richiama `aggiungiInTesta`.
+- Se `pos == 0`, richiama `sl_aggiungiInTesta`.
 - Se `pos` è maggiore della lunghezza attuale, il nodo viene aggiunto alla fine.
 
 ---
 
-### `lista aggiungiInCoda(lista testa, int valore);`
+### `lista sl_aggiungiInCoda(lista testa, int valore);`
 
 Inserisce un nuovo nodo alla fine della lista.
 
@@ -292,12 +292,12 @@ Inserisce un nuovo nodo alla fine della lista.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = aggiungiInCoda(miaLista, 42);
+miaLista = sl_aggiungiInCoda(miaLista, 42);
 ```
 
 ---
 
-### `lista riempiRnd(lista testa, int dim, int range, int min, int div);`
+### `lista sl_riempiRnd(lista testa, int dim, int range, int min, int div);`
 
 Aggiunge in testa a una lista `dim` numeri casuali da `min` a `min + range`.
 
@@ -317,22 +317,22 @@ Aggiunge in testa a una lista `dim` numeri casuali da `min` a `min + range`.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = riempiRnd(miaLista, 5,10,1,1);
-stampaLista(miaLista);
+miaLista = sl_riempiRnd(miaLista, 5,10,1,1);
+sl_stampaLista(miaLista);
 // es. di output (5 numeri da 1 a 10 tutti diversi)
 [6] -> [8] -> [2] -> [4] -> [5] -> NULL
 ```
 
 **Note:**
 
-- Se `div = 1`, la funzione utilizza `incluso`, il quale scorre l'intera lista, per ogni nuovo numero. Se `dim` è troppo alto i tempi di elaborazione posso diventare molto lunghi.
+- Se `div = 1`, la funzione utilizza `sl_datoIncluso`, il quale scorre l'intera lista, per ogni nuovo numero. Se `dim` è troppo alto i tempi di elaborazione posso diventare molto lunghi.
 - per `div`, ogni valore diverso da `1` permette numeri duplicati.
-- I numeri generati vengono inseriti nella lista tramite `aggiungiInTesta` per questioni di ottimizzazione. (Aggiungendo in coda bisognerebbe scorrere la lista per ogni numero).
+- I numeri generati vengono inseriti nella lista tramite `sl_aggiungiInTesta` per questioni di ottimizzazione. (Aggiungendo in coda bisognerebbe scorrere la lista per ogni numero).
 - Se non esistono abbastanza numeri univoci, vengono inseriti finché disponibili, poi vengono accettati duplicati.
 
 ---
 
-### `int intInput();`
+### `int sl_intInput();`
 
 Legge un input intero da tastiera, garantendo che il programma non vada in crash o in loop infinito se vengono inseriti caratteri non numerici.
 
@@ -350,12 +350,12 @@ Legge un input intero da tastiera, garantendo che il programma non vada in crash
 **Esempio di utilizzo:**
 
 ```c
-int n = intInput();
+int n = sl_intInput();
 ```
 
 ---
 
-### `lista riempiManuale(lista testa, int dim);`
+### `lista sl_riempiManuale(lista testa, int dim);`
 
 Permette il popolamento di una lista tramite inserimenti manuali da parte dell'utente per un numero definito di volte.
 
@@ -371,12 +371,12 @@ Permette il popolamento di una lista tramite inserimenti manuali da parte dell'u
 **Esempio di utilizzo:**
 
 ```c
-miaLista = riempiManuale(miaLista, 5);
+miaLista = sl_riempiManuale(miaLista, 5);
 ```
 
 ---
 
-### `void stampaLista(lista testa);`
+### `void sl_stampaLista(lista testa);`
 
 Stampa a video il contenuto della lista nel formato `[dato] -> [dato] -> NULL`.
 
@@ -387,12 +387,12 @@ Stampa a video il contenuto della lista nel formato `[dato] -> [dato] -> NULL`.
 **Esempio di utilizzo:**
 
 ```c
-stampaLista(miaLista); // Output: [10] -> [20] -> NULL
+sl_stampaLista(miaLista); // Output: [10] -> [20] -> NULL
 ```
 
 ---
 
-### `lista delLista(lista testa);`
+### `lista sl_delLista(lista testa);`
 
 Elimina l'intera lista deallocando la memoria di ogni singolo nodo.
 
@@ -407,7 +407,7 @@ Elimina l'intera lista deallocando la memoria di ogni singolo nodo.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = delLista(miaLista);
+miaLista = sl_delLista(miaLista);
 ```
 
 **Note:**
@@ -416,7 +416,7 @@ miaLista = delLista(miaLista);
 
 ---
 
-### `lista delTesta(lista testa);`
+### `lista sl_delTesta(lista testa);`
 
 Rimuove il primo elemento della lista.
 
@@ -432,12 +432,12 @@ Rimuove il primo elemento della lista.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = delTesta(miaLista);
+miaLista = sl_delTesta(miaLista);
 ```
 
 ---
 
-### `lista delCoda(lista testa);`
+### `lista sl_delCoda(lista testa);`
 
 Rimuove l'ultimo elemento della lista.
 
@@ -453,12 +453,12 @@ Rimuove l'ultimo elemento della lista.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = delCoda(miaLista);
+miaLista = sl_delCoda(miaLista);
 ```
 
 ---
 
-### `lista delEleLista(lista testa, int pos);`
+### `lista sl_delEleLista(lista testa, int pos);`
 
 Elimina un nodo in una posizione specifica della lista.
 
@@ -475,17 +475,17 @@ Elimina un nodo in una posizione specifica della lista.
 **Esempio di utilizzo:**
 
 ```c
-miaLista = delEleLista(miaLista, 3);
+miaLista = sl_delEleLista(miaLista, 3);
 ```
 
 **Note:**
 
-- Se `pos == 0`, la funzione richiama internamente `delTesta`.
+- Se `pos == 0`, la funzione richiama internamente `sl_delTesta`.
 - Se la posizione fornita è maggiore del numero di elementi presenti, la funzione non apporta alcuna modifica.
 
 ---
 
-### `int nodoIncluso(lista testa, puntaNodo A);`
+### `int sl_nodoIncluso(lista testa, puntaNodo A);`
 
 Verifica se un determinato nodo appartiene alla lista specificata.
 
@@ -502,13 +502,13 @@ Verifica se un determinato nodo appartiene alla lista specificata.
 **Esempio di utilizzo:**
 
 ```c
-isIncluded = nodoIncluso(miaLista,A);
+isIncluded = sl_nodoIncluso(miaLista,A);
 if(isIncluded) printf("A è presente nella lista");
 ```
 
 ---
 
-### `int datoIncluso(lista testa, int valore);`
+### `int sl_datoIncluso(lista testa, int valore);`
 
 Verifica se un determinato valore è presente nella lista specificata.
 
@@ -525,13 +525,13 @@ Verifica se un determinato valore è presente nella lista specificata.
 **Esempio di utilizzo:**
 
 ```c
-isIncluded = datoIncluso(miaLista,7);
+isIncluded = sl_datoIncluso(miaLista,7);
 if(isIncluded) printf("7 è presente nella lista");
 ```
 
 ---
 
-### `int isVuota(lista testa);`
+### `int sl_isVuota(lista testa);`
 
 Verifica se una lista è vuota.
 
@@ -547,12 +547,12 @@ Verifica se una lista è vuota.
 **Esempio di utilizzo:**
 
 ```c
-if(isVuota(miaLista)) printf("lista vuota");
+if(sl_isVuota(miaLista)) printf("lista vuota");
 ```
 
 ---
 
-### `int posizione(lista testa, int valore);`
+### `int sl_posizione(lista testa, int valore);`
 
 Restituisce la posizione della prima occorrenza del valore dato.
 
@@ -570,13 +570,13 @@ Restituisce la posizione della prima occorrenza del valore dato.
 **Esempio di utilizzo:**
 
 ```c
-int pos = posizione(miaLIsta,3);
+int pos = sl_posizione(miaLista,3);
 printf("3 è il %d della lista",pos+1);
 ```
 
 ---
 
-### `void swapDato(lista testa, puntaNodo A, puntaNodo B);`
+### `void sl_swapDato(lista testa, puntaNodo A, puntaNodo B);`
 
 Scambia i valori contenuti in due nodi della stessa lista.
 
@@ -589,16 +589,16 @@ Scambia i valori contenuti in due nodi della stessa lista.
 **Esempio di utilizzo:**
 
 ```c
-swapDato(miaLista,A,B);
+sl_swapDato(miaLista,A,B);
 ```
 
 **Note:**
 
-- La funzione verifica l'effettiva appartenenza di entrambi i nodi alla lista tramite `incluso` prima di procedere.
+- La funzione verifica l'effettiva appartenenza di entrambi i nodi alla lista tramite `sl_nodoIncluso` prima di procedere.
 
 ---
 
-### `lista bubbleSortLista(lista testa);`
+### `lista sl_bubbleSortLista(lista testa);`
 
 Ordina la lista in modo crescente utilizzando l'algoritmo Bubble Sort tramite lo scambio dei dati.
 
@@ -613,14 +613,14 @@ Ordina la lista in modo crescente utilizzando l'algoritmo Bubble Sort tramite lo
 **Esempio di utilizzo:**
 
 ```c
-listaOrdinata = bubbleSortLista(listaOrdinata);
+listaOrdinata = sl_bubbleSortLista(listaOrdinata);
 ```
 
 ---
 
-### `lista mergeOrdinato(lista a, lista b);`
+### `lista sl_mergeOrdinato(lista a, lista b);`
 
-‼️**Funzione di supporto a `mergeSortLista`.**
+‼️**Funzione di supporto a `sl_mergeSortLista`.**
 Fonde due sottoliste già ordinate in un'unica lista ordinata.
 
 **Parametri:**
@@ -634,7 +634,7 @@ Fonde due sottoliste già ordinate in un'unica lista ordinata.
 
 ---
 
-### `lista mergeSortLista(lista testa);`
+### `lista sl_mergeSortLista(lista testa);`
 
 Ordina la lista in modo crescente utilizzando l'algoritmo Merge Sort con complessità temporale $O(n \log n)$.
 
@@ -648,7 +648,7 @@ Ordina la lista in modo crescente utilizzando l'algoritmo Merge Sort con comples
 
 ---
 
-### `lista fondiListe(lista L1, lista L2);`
+### `lista sl_fondiListe(lista L1, lista L2);`
 
 Crea una nuova lista che è la concatenazione di due liste esistenti. A differenza di altre funzioni di unione, questa non modifica le liste originali ma ne crea una copia profonda.
 
@@ -667,9 +667,8 @@ Crea una nuova lista che è la concatenazione di due liste esistenti. A differen
 ```c
 lista listaA = // [1, 2]
 lista listaB = // [3, 4]
-lista listaUnita = fondiListe(listaA, listaB);
+lista listaUnita = sl_fondiListe(listaA, listaB);
 // listaA e listaB rimangono invariate. listaUnita è [1, 2, 3, 4]
-
 ```
 
 **Note:**
@@ -678,7 +677,7 @@ lista listaUnita = fondiListe(listaA, listaB);
 
 ---
 
-### `lista copiaLista(lista testa);`
+### `lista sl_copiaLista(lista testa);`
 
 Crea una copia indipendente dell'intera lista specificata, allocando nuovi nodi per ogni elemento.
 
@@ -694,18 +693,18 @@ Crea una copia indipendente dell'intera lista specificata, allocando nuovi nodi 
 **Esempio di utilizzo:**
 
 ```c
-lista miaCopia = copiaLista(listaOriginale);
+lista miaCopia = sl_copiaLista(listaOriginale);
 ```
 
 **Note:**
 
 - La funzione effettua una "deep copy": le modifiche ai valori o alla struttura della copia non influenzano in alcun modo la lista originale.
-- Utilizza internamente la funzione `aggiungiInCoda` per mantenere lo stesso ordine degli elementi.
-- La memoria allocata per la copia deve essere successivamente liberata tramite `delLista` per evitare memory leak.
+- Utilizza internamente la funzione `sl_aggiungiInCoda` per mantenere lo stesso ordine degli elementi.
+- La memoria allocata per la copia deve essere successivamente liberata tramite `sl_delLista` per evitare memory leak.
 
 ---
 
-### `lista invertiLista(lista testa);`
+### `lista sl_invertiLista(lista testa);`
 
 Crea una nuova lista che contiene gli stessi elementi della lista originale, ma in ordine invertito.
 
@@ -721,7 +720,7 @@ Crea una nuova lista che contiene gli stessi elementi della lista originale, ma 
 **Esempio di utilizzo:**
 
 ```c
-lista listaSpeculare = invertiLista(miaLista);
+lista listaSpeculare = sl_invertiLista(miaLista);
 // Se miaLista era [1, 2, 3], listaSpeculare sarà [3, 2, 1]
 ```
 
@@ -731,7 +730,7 @@ lista listaSpeculare = invertiLista(miaLista);
 
 ---
 
-### `int ripetizioni(lista testa, int valore);`
+### `int sl_ripetizioni(lista testa, int valore);`
 
 Conta quante volte un determinato valore compare nella lista.
 
@@ -747,13 +746,13 @@ Conta quante volte un determinato valore compare nella lista.
 **Esempio di utilizzo:**
 
 ```c
-rip = ripetizioni(miaLista,8);
+rip = sl_ripetizioni(miaLista,8);
 printf("Nella lista 8 è ripetuto %d volte",rip);
 ```
 
 ---
 
-### `int modaLista(lista testa);`
+### `int sl_modaLista(lista testa);`
 
 Individua il valore che compare più frequentemente nella lista (Moda).
 
@@ -769,13 +768,13 @@ Individua il valore che compare più frequentemente nella lista (Moda).
 **Esempio di utilizzo:**
 
 ```c
-moda = modaLista(miaLista);
+moda = sl_modaLista(miaLista);
 printf("il valore più frequente nella lista è %d",moda);
 ```
 
 ---
 
-### `int lenLista(lista testa);`
+### `int sl_lenLista(lista testa);`
 
 Calcola il numero di elementi (nodi) presenti nella lista.
 
@@ -790,13 +789,13 @@ Calcola il numero di elementi (nodi) presenti nella lista.
 **Esempio di utilizzo:**
 
 ```c
-len = lenLista(miaLista);
+len = sl_lenLista(miaLista);
 printf("la lista è composta da %d nodi",len);
 ```
 
 ---
 
-### `int sommaLista(lista testa);`
+### `int sl_sommaLista(lista testa);`
 
 Calcola la somma algebrica di tutti i valori contenuti nella lista.
 
@@ -811,13 +810,13 @@ Calcola la somma algebrica di tutti i valori contenuti nella lista.
 **Esempio di utilizzo:**
 
 ```c
-somma = sommaLista(miaLista);
+somma = sl_sommaLista(miaLista);
 printf("Il totale della lista è %d",somma);
 ```
 
 ---
 
-### `int maxLista(lista testa);`
+### `int sl_maxLista(lista testa);`
 
 Trova il valore massimo contenuto nella lista.
 
@@ -833,13 +832,13 @@ Trova il valore massimo contenuto nella lista.
 **Esempio di utilizzo:**
 
 ```c
-max = maxLista(miaLista);
+max = sl_maxLista(miaLista);
 printf("il valore maggiore nella lista è %d",max);
 ```
 
 ---
 
-### `int minLista(lista testa);`
+### `int sl_minLista(lista testa);`
 
 Trova il valore minimo contenuto nella lista.
 
@@ -855,13 +854,13 @@ Trova il valore minimo contenuto nella lista.
 **Esempio di utilizzo:**
 
 ```c
-min = minLista(miaLista);
+min = sl_minLista(miaLista);
 printf("il valore minore nella lista è %d",min);
 ```
 
 ---
 
-### `float medLista(lista testa);`
+### `float sl_medLista(lista testa);`
 
 Calcola la media aritmetica dei valori nella lista.
 
@@ -877,13 +876,13 @@ Calcola la media aritmetica dei valori nella lista.
 **Esempio di utilizzo:**
 
 ```c
-med = medLista(miaLista);
+med = sl_medLista(miaLista);
 printf("il valore medio nella lista è %.2f",med);
 ```
 
 ---
 
-### `float medianaLista(lista testa);`
+### `float sl_medianaLista(lista testa);`
 
 Calcola la mediana dei valori contenuti nella lista senza alterare l'ordine degli elementi nella lista originale.
 
@@ -899,12 +898,12 @@ Calcola la mediana dei valori contenuti nella lista senza alterare l'ordine degl
 **Esempio di utilizzo:**
 
 ```c
-float m = medianaLista(miaLista);
+float m = sl_medianaLista(miaLista);
 if(!isnan(m)) printf("La mediana è: %.2f", m);
 ```
 
 **Note:**
 
-- La funzione è di tipo "non distruttivo": crea internamente una copia della lista tramite `copiaLista` per poterla ordinare.
+- La funzione è di tipo "non distruttivo": crea internamente una copia della lista tramite `sl_copiaLista` per poterla ordinare.
 - La memoria della copia viene interamente deallocata prima della restituzione del risultato per evitare memory leak.
 - Per liste con un numero pari di elementi, la mediana è calcolata come media aritmetica dei due valori centrali.

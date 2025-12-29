@@ -1,8 +1,8 @@
-// Mattia Bittante - 29/12/2025 - version 1.6 - italian
+// Mattia Bittante - 29/12/2025 - version 1.7 - italian
 
 #include "linkedList.h"
 
-puntaNodo creaNodo(int valore)
+puntaNodo sl_creaNodo(int valore)
 {
   puntaNodo n = (puntaNodo)malloc(sizeof(nodo)); //cast per compatibilita con C++
   if (n == NULL) return NULL;
@@ -11,28 +11,28 @@ puntaNodo creaNodo(int valore)
   return n;
 }
 
-lista aggiungiInTesta(lista testa, int valore)
+lista sl_aggiungiInTesta(lista testa, int valore)
 {
-  puntaNodo n = creaNodo(valore);
+  puntaNodo n = sl_creaNodo(valore);
   if(n==NULL) return testa;
   n->next = testa;
   return n;
 }
 
-lista aggiungiInMezzo(lista testa, int valore, int pos)
+lista sl_aggiungiInMezzo(lista testa, int valore, int pos)
 {
   int i;
   
   if(pos<0) return testa;
     
-  if(testa == NULL) return creaNodo(valore);
+  if(testa == NULL) return sl_creaNodo(valore);
 
-  if(pos == 0) return aggiungiInTesta(testa,valore); 
+  if(pos == 0) return sl_aggiungiInTesta(testa,valore); 
 
-  puntaNodo n = creaNodo(valore);
+  puntaNodo n = sl_creaNodo(valore);
   puntaNodo corrente = testa;
 
-  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo � aggiunge in coda
+  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo  aggiunge in coda
   {
   	corrente = corrente->next;
   }
@@ -47,9 +47,9 @@ lista aggiungiInMezzo(lista testa, int valore, int pos)
   return testa;
 }
 
-lista aggiungiInCoda(lista testa, int valore)
+lista sl_aggiungiInCoda(lista testa, int valore)
 {
-  puntaNodo n = creaNodo(valore);
+  puntaNodo n = sl_creaNodo(valore);
   if (testa == NULL) return n;
 
   puntaNodo corrente = testa;
@@ -61,7 +61,7 @@ lista aggiungiInCoda(lista testa, int valore)
   return testa;
 }
 
-lista riempiRnd(lista testa, int dim, int range, int min, int div)
+lista sl_riempiRnd(lista testa, int dim, int range, int min, int div)
 {
     int i, r, v;
     int valoriOccupati = 0; //valori del range già presenti nella lista
@@ -70,7 +70,7 @@ lista riempiRnd(lista testa, int dim, int range, int min, int div)
     {
         for (v = min; v < min + range; v++) 
         {
-            if (datoIncluso(testa, v)) valoriOccupati++;
+            if (sl_datoIncluso(testa, v)) valoriOccupati++;
         }
     }
 
@@ -80,16 +80,16 @@ lista riempiRnd(lista testa, int dim, int range, int min, int div)
         {
             do {
                 r = (rand() % range) + min;
-            } while (datoIncluso(testa, r) == 1); 
+            } while (sl_datoIncluso(testa, r) == 1); 
             valoriOccupati++; 
         } 
         else r = (rand() % range) + min;
-        testa = aggiungiInTesta(testa, r);
+        testa = sl_aggiungiInTesta(testa, r);
     }
     return testa;
 }
 
-int intInput() 
+int sl_intInput() 
 {
     int numero;
     char ch;
@@ -132,21 +132,21 @@ int intInput()
     }
 }
 
-lista riempiManuale(lista testa, int dim)
+lista sl_riempiManuale(lista testa, int dim)
 {
   int i;
   int input;
   for(i=0; i<dim; i++)
   {
     printf("Elemento %d: ",i+1);
-    input = intInput();
-    testa = aggiungiInCoda(testa,input);
+    input = sl_intInput();
+    testa = sl_aggiungiInCoda(testa,input);
   }
 
   return testa;
 }
 
-void stampaLista(lista testa)
+void sl_stampaLista(lista testa)
 {
   puntaNodo corrente = testa;
   while(corrente != NULL)
@@ -157,7 +157,7 @@ void stampaLista(lista testa)
   printf("NULL\n");
 }
 
-lista delLista(lista testa)
+lista sl_delLista(lista testa)
 {
     puntaNodo corrente = testa;
     while (corrente != NULL)
@@ -170,7 +170,7 @@ lista delLista(lista testa)
 }
 
 
-lista delTesta(lista testa)
+lista sl_delTesta(lista testa)
 {
   if(testa == NULL) return NULL;
   puntaNodo del = testa;
@@ -180,7 +180,7 @@ lista delTesta(lista testa)
   return testa;
 }
 
-lista delCoda(lista testa)
+lista sl_delCoda(lista testa)
 {
     if (testa == NULL) return NULL;
 
@@ -202,13 +202,13 @@ lista delCoda(lista testa)
     return testa;
 }
 
-lista delEleLista(lista testa, int pos)
+lista sl_delEleLista(lista testa, int pos)
 {
   int i;
   
   if(pos<0 || testa == NULL) return testa;
 
-  if(pos == 0) return delTesta(testa); 
+  if(pos == 0) return sl_delTesta(testa); 
 
   puntaNodo corrente = testa;
 
@@ -226,7 +226,7 @@ lista delEleLista(lista testa, int pos)
   return testa;
 }
 
-int nodoIncluso(lista testa, puntaNodo A)
+int sl_nodoIncluso(lista testa, puntaNodo A)
 {
   puntaNodo corrente = testa;
   while(corrente != NULL)
@@ -237,7 +237,7 @@ int nodoIncluso(lista testa, puntaNodo A)
   return 0;
 }
 
-int datoIncluso(lista testa, int valore)
+int sl_datoIncluso(lista testa, int valore)
 {
   puntaNodo corrente = testa;
 
@@ -250,13 +250,13 @@ int datoIncluso(lista testa, int valore)
   return 0;
 }
 
-int isVuota(lista testa)
+int sl_isVuota(lista testa)
 {
   if(testa == NULL) return 1;
   else return 0;
 }
 
-int posizione(lista testa, int valore)
+int sl_posizione(lista testa, int valore)
 {
   if(testa == NULL) return -2;
   puntaNodo corrente = testa;
@@ -272,16 +272,16 @@ int posizione(lista testa, int valore)
   return -1;
 }
 
-void swapDato(lista testa, puntaNodo A, puntaNodo B)
+void sl_swapDato(lista testa, puntaNodo A, puntaNodo B)
 {
-  if(nodoIncluso(testa,A) == 0 || nodoIncluso(testa,B) == 0) return;
+  if(sl_nodoIncluso(testa,A) == 0 || sl_nodoIncluso(testa,B) == 0) return;
   int temp = 0;
   temp = A->dato;
   A->dato = B->dato;
   B->dato = temp;
 }
 
-lista bubbleSortLista(lista testa)
+lista sl_bubbleSortLista(lista testa)
 {
   if (testa == NULL) return testa;
   int scambiato;
@@ -293,7 +293,7 @@ lista bubbleSortLista(lista testa)
     {
       if (corrente->dato > corrente->next->dato)
       {
-        swapDato(testa, corrente, corrente->next);
+        sl_swapDato(testa, corrente, corrente->next);
         scambiato = 1;
       }
       corrente = corrente->next;
@@ -304,7 +304,7 @@ lista bubbleSortLista(lista testa)
 }
 
 // Funzione interna di supporto per fondere due sottoliste già ordinate
-lista mergeOrdinato(lista a, lista b) 
+lista sl_mergeOrdinato(lista a, lista b) 
 {
   if (a == NULL) return b;
   if (b == NULL) return a;
@@ -314,18 +314,18 @@ lista mergeOrdinato(lista a, lista b)
   if (a->dato <= b->dato) 
   {
     risultato = a;
-    risultato->next = mergeOrdinato(a->next, b);
+    risultato->next = sl_mergeOrdinato(a->next, b);
   } 
   else 
   {
     risultato = b;
-    risultato->next = mergeOrdinato(a, b->next);
+    risultato->next = sl_mergeOrdinato(a, b->next);
   }
   return risultato;
 }
 
 // Funzione principale di Merge Sort
-lista mergeSortLista(lista testa) 
+lista sl_mergeSortLista(lista testa) 
 {
 
   if (testa == NULL || testa->next == NULL) return testa;
@@ -342,54 +342,54 @@ lista mergeSortLista(lista testa)
   lista meta = lento->next;
   lento->next = NULL;
 
-  return mergeOrdinato(mergeSortLista(testa), mergeSortLista(meta));
+  return sl_mergeOrdinato(sl_mergeSortLista(testa), sl_mergeSortLista(meta));
 }
 
-lista copiaLista(lista testa)
+lista sl_copiaLista(lista testa)
 {
   lista copia = NULL;
   puntaNodo corrente = testa;
   while(corrente != NULL)
   {
-    copia = aggiungiInCoda(copia,corrente->dato);
+    copia = sl_aggiungiInCoda(copia,corrente->dato);
     corrente = corrente->next;
   }
   return copia;
 }
 
-lista fondiListe(lista L1, lista L2)
+lista sl_fondiListe(lista L1, lista L2)
 {
   if (L1 == NULL && L2 == NULL) return NULL;
-  if (L1 == NULL) return copiaLista(L2);
-  if (L2 == NULL) return copiaLista(L1);
+  if (L1 == NULL) return sl_copiaLista(L2);
+  if (L2 == NULL) return sl_copiaLista(L1);
 
-  lista nuovaLista = copiaLista(L1);
+  lista nuovaLista = sl_copiaLista(L1);
   puntaNodo corrente = L2;
 
   while (corrente != NULL)
   {
-    nuovaLista = aggiungiInCoda(nuovaLista, corrente->dato);
+    nuovaLista = sl_aggiungiInCoda(nuovaLista, corrente->dato);
     corrente = corrente->next;
   }
 
   return nuovaLista;
 }
 
-lista invertiLista(lista testa)
+lista sl_invertiLista(lista testa)
 {
   puntaNodo corrente = testa;
   lista listaInvertita = NULL;
   
   while(corrente != NULL)
   {
-    listaInvertita = aggiungiInTesta(listaInvertita,corrente->dato);
+    listaInvertita = sl_aggiungiInTesta(listaInvertita,corrente->dato);
     corrente = corrente->next;
   }
 
   return listaInvertita;
 }
 
-int ripetizioni(lista testa, int valore)
+int sl_ripetizioni(lista testa, int valore)
 {
   int rip = 0;
   puntaNodo corrente = testa;
@@ -401,16 +401,16 @@ int ripetizioni(lista testa, int valore)
   return rip;
 }
 
-int modaLista(lista testa)
+int sl_modaLista(lista testa)
 {
   if(testa == NULL) return INT_MIN;
   puntaNodo corrente = testa;
   int rip = 0;
-  int maxRip = ripetizioni(testa,corrente->dato);
+  int maxRip = sl_ripetizioni(testa,corrente->dato);
   int valoreMax = corrente->dato;
   while(corrente != NULL)
   {
-  	rip = ripetizioni(testa,corrente->dato);
+  	rip = sl_ripetizioni(testa,corrente->dato);
   	if(rip>maxRip) 
 	{
 	  maxRip = rip;
@@ -421,7 +421,7 @@ int modaLista(lista testa)
   return valoreMax;
 }
 
-int lenLista(lista testa)
+int sl_lenLista(lista testa)
 {
   puntaNodo corrente = testa;
   int len = 0;
@@ -433,7 +433,7 @@ int lenLista(lista testa)
   return len;
 }
 
-int sommaLista(lista testa)
+int sl_sommaLista(lista testa)
 {
   puntaNodo corrente = testa;
   int somma = 0;
@@ -445,7 +445,7 @@ int sommaLista(lista testa)
   return somma;
 }
 
-int maxLista(lista testa)
+int sl_maxLista(lista testa)
 {
   if (testa == NULL) return INT_MIN;
   int max = testa->dato;
@@ -458,7 +458,7 @@ int maxLista(lista testa)
   return max;  
 }
 
-int minLista(lista testa)
+int sl_minLista(lista testa)
 {
   if (testa == NULL) return INT_MAX;
   int min = testa->dato;
@@ -471,25 +471,25 @@ int minLista(lista testa)
   return min;  
 }
 
-float medLista(lista testa)
+float sl_medLista(lista testa)
 {
-  int somma = sommaLista(testa);
-  int len = lenLista(testa);
+  int somma = sl_sommaLista(testa);
+  int len = sl_lenLista(testa);
   if(len == 0) return NAN;
   return(float)somma / len; 
 }
 
-float medianaLista(lista testa)
+float sl_medianaLista(lista testa)
 {
   int i;
   float risultato;
-  int len = lenLista(testa);
+  int len = sl_lenLista(testa);
   if(len == 0) return NAN;
 
   //eseguo una copia della lista per non ordinare quella originale.
   lista copia = NULL;
-  copia = copiaLista(testa);
-  copia = bubbleSortLista(copia);
+  copia = sl_copiaLista(testa);
+  copia = sl_bubbleSortLista(copia);
   
   puntaNodo corrente = copia;
 
@@ -505,6 +505,6 @@ float medianaLista(lista testa)
   	  corrente = corrente->next;
     risultato = (float)(corrente->dato + corrente->next->dato) / 2;
   }
-  copia = delLista(copia);
+  copia = sl_delLista(copia);
   return risultato;
 }
