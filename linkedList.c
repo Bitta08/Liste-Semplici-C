@@ -65,6 +65,8 @@ lista sl_riempiRnd(lista testa, int dim, int range, int min, int div)
 {
     int i, r, v;
     int valoriOccupati = 0; //valori del range già presenti nella lista
+    
+    if (range <= 0 || dim <= 0) return testa;
 
     if (div == 1) 
     {
