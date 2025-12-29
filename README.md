@@ -2,8 +2,8 @@
 # Libreria Liste Semplici in C
 
 **Autore:** Mattia Bittante  
-**Versione:** 1.4  
-**Data:** 28/12/2025  
+**Versione:** 1.5  
+**Data:** 29/12/2025  
 **Linguaggio:** C (compatibile con C++)
 **Compatibilità:** Windows / Linux / macOS
 
@@ -483,6 +483,51 @@ Verifica se un determinato valore è presente nella lista specificata.
 ```c
 isIncluded = datoIncluso(miaLista,7);
 if(isIncluded) printf("7 è presente nella lista");
+```
+
+---
+
+### `int isVuota(lista testa);`
+
+Verifica se una lista è vuota.
+
+**Parametri:**
+
+- **`lista testa`**: la lista da verificare
+
+**Ritorno:**
+
+- **`1`**: Se la lista è vuota.
+- **`0`**: Se la lista non è vuota.
+
+**Esempio di utilizzo:**
+
+```c
+if(isVuota(miaLista)) printf("lista vuota");
+```
+
+---
+
+### `int posizione(lista testa, int valore);`
+
+Restituisce la posizione della prima occorrenza del valore dato.
+
+**Parametri:**
+
+- **`lista testa`**: la lista dove cercare.
+- **`int valore`**: il numero da cercare.
+
+**Ritorno:**
+
+- la **posizione** del valore nella lista.
+- **`-1`**: Se il valore non è presente nella lista.
+- **`-2`**: Se la lista è vuota.
+
+**Esempio di utilizzo:**
+
+```c
+int pos = posizione(miaLIsta,3);
+printf("3 è il %d della lista",pos+1);
 ```
 
 ---

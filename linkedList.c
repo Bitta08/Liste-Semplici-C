@@ -1,4 +1,4 @@
-// Mattia Bittante - 28/12/2025 - version 1.4 - italian
+// Mattia Bittante - 29/12/2025 - version 1.5 - italian
 
 #include "linkedList.h"
 
@@ -155,7 +155,7 @@ lista delEleLista(lista testa, int pos)
 
   puntaNodo corrente = testa;
 
-  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo è aggiunge in coda
+  for(i=0; i<pos-1 && corrente->next != NULL; i++) //verifica che pos non sia > della dimesione della lista, se lo è ritorna testa
   {
   	corrente = corrente->next;
   }
@@ -191,6 +191,28 @@ int datoIncluso(lista testa, int valore)
   }
   
   return 0;
+}
+
+int isVuota(lista testa)
+{
+  if(testa == NULL) return 1;
+  else return 0;
+}
+
+int posizione(lista testa, int valore)
+{
+  if(testa == NULL) return -2;
+  puntaNodo corrente = testa;
+  int pos=0;
+
+  while(corrente != NULL)
+  {
+    if(corrente->dato == valore) return pos;
+    corrente = corrente->next;
+    pos++;
+  }
+  
+  return -1;
 }
 
 void swapDato(lista testa, puntaNodo A, puntaNodo B)

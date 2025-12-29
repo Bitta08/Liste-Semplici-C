@@ -1,4 +1,4 @@
-// Mattia Bittante - 28/12/2025 - version 1.4 - italian
+// Mattia Bittante - 29/12/2025 - version 1.5 - italian
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -33,6 +33,8 @@ lista delCoda(lista testa);
 lista delEleLista(lista testa, int pos);
 int nodoIncluso(lista testa, puntaNodo A);
 int datoIncluso(lista testa, int valore);
+int isVuota(lista testa);
+int posizione(lista testa, int valore);
 void swapDato(lista testa, puntaNodo A, puntaNodo B);
 lista bubbleSortLista(lista testa);
 lista mergeOrdinato(lista a, lista b);
